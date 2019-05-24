@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.zj.StudentMapper">
+  <resultMap id="mymap" type="Teacher">
+      <id property="id" column="id"/>
+      <result property="username" column="username"/>
+      <result property="tname" column="tname"/>
+      <association property="course" javaType="Course" >
+          <id property="courseid" column="courseid"/>
+          <result property="coursecode" column="coursecode"/>
+          <result property="coursename" column="coursename"/>
+          <result property="courseteacher" column="courseteacher"/>
+          <result property="courselocaltion" column="courselocaltion"/>
+          <result property="coursetime" column="coursetime"/>
+          <result property="coursepower" column="coursepower"/>
+          <result property="coursetype" column="coursetype"/>
+          <result property="selcount" column="selcount"/>
+      </association>
+  </resultMap>
+    <select id="selbytc" resultMap="mymap">
+        SELECT c.*,
+        FROM teacher t LEFT JOIN course c
+        ON s.courseid=c.courseid
+        WHERE codeid=#{codeid}
+    </select>
+</mapper>

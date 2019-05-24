@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.zj.SelectMapper">
+        <resultMap id="mymap" type="Selectcourse">
+            <id property="id" column="id"/>
+            <result property="codeid" column="codeid"/>
+            <result property="courseid" column="courseid"/>
+            <association property="course" javaType="Course" >
+                <id property="courseid" column="courseid"/>
+                <result property="coursecode" column="coursecode"/>
+                <result property="coursename" column="coursename"/>
+                <result property="courseteacher" column="courseteacher"/>
+                <result property="courselocaltion" column="courselocaltion"/>
+                <result property="coursetime" column="coursetime"/>
+                <result property="coursepower" column="coursepower"/>
+                <result property="coursetype" column="coursetype"/>
+                <result property="selcount" column="selcount"/>
+            </association>
+        </resultMap>
+    <insert id="insselect" parameterType="Selectcourse">
+            INSERT INTO selectcourse VALUE (default,#{codeid}, #{courseid})
+    </insert>
+    <insert id="insHis" parameterType="Selectcourse">
+            INSERT INTO history VALUE (default,#{codeid}, #{courseid})
+    </insert>
+    <update id="updcount" parameterType="int">
+            UPDATE course
+            SET selcount=selcount+1
+            WHERE courseid=#{courseid}
+    </update>
+    <select id="selBysc" resultMap="mymap">
+        SELECT *
+        FROM selectcourse
+        WHERE codeid=#{codeid} AND courseid=#{courseid}
+    </select>
+    <select id="selTwo" resultMap="mymap">
+        SELECT c.*
+        FROM selectcourse s LEFT JOIN course c
+        ON s.courseid=c.courseid
+        WHERE codeid=#{codeid}
+    </select>
+    <select id="selByhis" resultMap="mymap">
+        SELECT c.*
+        FROM history s LEFT JOIN course c
+        ON s.courseid=c.courseid
+        WHERE codeid=#{codeid}
+    </select>
+</mapper>

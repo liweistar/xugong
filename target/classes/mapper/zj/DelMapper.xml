@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.zj.DelMapper">
+   <delete id="delCourse" parameterType="int">
+       DELETE FROM selectcourse
+       WHERE codeid=#{codeid} AND courseid=#{courseid}
+   </delete>
+    <update id="updcount" parameterType="int">
+            UPDATE course
+            SET selcount=selcount-1
+            WHERE courseid=#{courseid}
+    </update>
+</mapper>
